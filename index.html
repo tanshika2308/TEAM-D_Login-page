@@ -1,0 +1,466 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Medi Assist AI</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #e8f8f8, #d5eeee);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 400px;
+            background: white;
+            padding: 35px;
+
+            border-radius: 20px;
+
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 50px;
+        }
+
+        h1 {
+            color: #168a8a;
+            margin: 5px 0;
+        }
+
+        .subtitle {
+            color: #777;
+            margin-bottom: 25px;
+        }
+
+        .form-box {
+            display: none;
+        }
+
+        .form-box.active {
+            display: block;
+        }
+
+        .input-box {
+            text-align: left;
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+
+            border: 1px solid #ccc;
+            border-radius: 8px;
+
+            font-size: 15px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #168a8a;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+
+            margin-top: 8px;
+
+            background-color: #168a8a;
+            color: white;
+
+            border: none;
+            border-radius: 8px;
+
+            font-size: 16px;
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0f6f6f;
+        }
+
+        .switch {
+            margin-top: 20px;
+            color: #666;
+        }
+
+        .switch a {
+            color: #168a8a;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .message {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <div class="container">
+
+        <div class="logo">🩺</div>
+
+        <h1>Medi Assist AI</h1>
+
+        <p class="subtitle">
+            Your Smart Healthcare Assistant
+        </p>
+
+
+        <!-- ================= LOGIN ================= -->
+
+        <div id="loginBox" class="form-box active">
+
+            <h2>Login</h2>
+
+            <form id="loginForm">
+
+                <div class="input-box">
+
+                    <label>Email</label>
+
+                    <input
+                        type="email"
+                        id="loginEmail"
+                        placeholder="Enter your email"
+                        required>
+
+                </div>
+
+
+                <div class="input-box">
+
+                    <label>Password</label>
+
+                    <input
+                        type="password"
+                        id="loginPassword"
+                        placeholder="Enter your password"
+                        required>
+
+                </div>
+
+
+                <button type="submit">
+                    Login
+                </button>
+
+            </form>
+
+
+            <p id="loginMessage" class="message"></p>
+
+
+            <div class="switch">
+
+                Don't have an account?
+
+                <a onclick="showSignup()">
+                    Sign Up
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================= SIGN UP ================= -->
+
+        <div id="signupBox" class="form-box">
+
+            <h2>Create Account</h2>
+
+            <form id="signupForm">
+
+
+                <div class="input-box">
+
+                    <label>Full Name</label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        placeholder="Enter your full name"
+                        required>
+
+                </div>
+
+
+                <div class="input-box">
+
+                    <label>Email</label>
+
+                    <input
+                        type="email"
+                        id="signupEmail"
+                        placeholder="Enter your email"
+                        required>
+
+                </div>
+
+
+                <div class="input-box">
+
+                    <label>Password</label>
+
+                    <input
+                        type="password"
+                        id="signupPassword"
+                        placeholder="Create a password"
+                        required>
+
+                </div>
+
+
+                <div class="input-box">
+
+                    <label>Confirm Password</label>
+
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        placeholder="Confirm your password"
+                        required>
+
+                </div>
+
+
+                <button type="submit">
+                    Create Account
+                </button>
+
+            </form>
+
+
+            <p id="signupMessage" class="message"></p>
+
+
+            <div class="switch">
+
+                Already have an account?
+
+                <a onclick="showLogin()">
+                    Login
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <script>
+
+
+        // ================= SHOW SIGN UP =================
+
+        function showSignup() {
+
+            document.getElementById("loginBox").classList.remove("active");
+
+            document.getElementById("signupBox").classList.add("active");
+
+        }
+
+
+
+        // ================= SHOW LOGIN =================
+
+        function showLogin() {
+
+            document.getElementById("signupBox").classList.remove("active");
+
+            document.getElementById("loginBox").classList.add("active");
+
+        }
+
+
+
+        // ================= SIGN UP =================
+
+        document.getElementById("signupForm").addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+
+            let name = document.getElementById("name").value;
+
+            let email = document.getElementById("signupEmail").value;
+
+            let password = document.getElementById("signupPassword").value;
+
+            let confirmPassword = document.getElementById("confirmPassword").value;
+
+            let message = document.getElementById("signupMessage");
+
+
+            // Check password
+
+            if (password !== confirmPassword) {
+
+                message.innerHTML = "Passwords do not match.";
+
+                message.style.color = "red";
+
+                return;
+
+            }
+
+
+            // Check password length
+
+            if (password.length < 6) {
+
+                message.innerHTML = "Password must contain at least 6 characters.";
+
+                message.style.color = "red";
+
+                return;
+
+            }
+
+
+            // Save account in browser
+
+            let user = {
+
+                name: name,
+
+                email: email,
+
+                password: password
+
+            };
+
+
+            localStorage.setItem("mediAssistUser", JSON.stringify(user));
+
+
+            message.innerHTML = "Account created successfully!";
+
+            message.style.color = "green";
+
+
+            // Clear form
+
+            document.getElementById("signupForm").reset();
+
+
+            // Go to login after 1 second
+
+            setTimeout(function() {
+
+                showLogin();
+
+            }, 1000);
+
+        });
+
+
+
+        // ================= LOGIN =================
+
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+
+            let email = document.getElementById("loginEmail").value;
+
+            let password = document.getElementById("loginPassword").value;
+
+            let message = document.getElementById("loginMessage");
+
+
+            // Get saved account
+
+            let savedUser = localStorage.getItem("mediAssistUser");
+
+
+            if (savedUser === null) {
+
+                message.innerHTML = "No account found. Please sign up first.";
+
+                message.style.color = "red";
+
+                return;
+
+            }
+
+
+            let user = JSON.parse(savedUser);
+
+
+            // Check login details
+
+            if (email === user.email && password === user.password) {
+
+                message.innerHTML = "Login successful!";
+
+                message.style.color = "green";
+
+
+                setTimeout(function() {
+
+                    alert("Welcome, " + user.name + "!");
+
+                }, 500);
+
+            }
+
+            else {
+
+                message.innerHTML = "Invalid email or password.";
+
+                message.style.color = "red";
+
+            }
+
+        });
+
+
+    </script>
+
+</body>
+
+</html>
